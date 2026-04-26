@@ -106,9 +106,10 @@ FOOTNOTES = (
 class HelpPanel(lf.ui.Panel):
     """Tabbed help & shortcuts reference panel."""
 
-    bl_idname = "lfs_help_plugin.help_panel"
-    bl_label = "Help"
-
+    id = "lfs_help_plugin.help_panel"
+    label = "Help"
+    space = lf.ui.PanelSpace.MAIN_PANEL_TAB
+    order = 0
     def draw(self, ui) -> None:
         with ui.tab_bar() as tabs:
             with tabs.tab("Shortcuts"):

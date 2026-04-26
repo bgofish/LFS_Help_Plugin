@@ -6,8 +6,10 @@ requires-python = ">=3.10"
 dependencies = []
 
 [project.urls]
-Repository = ""
+Repository = "https://github.com/bgofish/LFS_Help_Plugin"
 
 [tool.lichtfeld.plugin]
-label = "Help"
-description = "Keyboard shortcuts reference and help panel for LichtFeld Studio 0.5.2"
+hot_reload = true
+plugin_api = ">=1,<2"
+lichtfeld_version = ">=0.4.2"
+required_features = []

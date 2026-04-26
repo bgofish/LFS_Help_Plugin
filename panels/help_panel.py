@@ -109,13 +109,13 @@ class HelpPanel(lf.ui.Panel):
     bl_idname = "lfs_help_plugin.help_panel"
     bl_label = "Help"
 
-    def draw(self, ui: lf.ui.Ui) -> None:
+    def draw(self, ui) -> None:
         with ui.tab_bar() as tabs:
             with tabs.tab("Shortcuts"):
                 self._draw_shortcuts(ui)
 
     # ------------------------------------------------------------------
-    def _draw_shortcuts(self, ui: lf.ui.Ui) -> None:
+    def _draw_shortcuts(self, ui) -> None:
         ui.label("LichtFeld Studio \u2013 Keyboard Shortcuts (v0.5.2)")
         ui.separator()
 

@@ -1,14 +1,11 @@
 [project]
-name = "lfs_help_plugin"
-version = "0.0.0"
+name = "lfs_help"
+version = "0.0.1"
 description = "Keyboard shortcuts and reference panel for LichtFeld Studio"
 requires-python = ">=3.10"
 dependencies = []
 
-[project.urls]
-Repository = "https://github.com/bgofish/LFS_Help_Plugin"
-
-[tool.lichtfeld.plugin]
+[tool.lichtfeld]
 hot_reload = true
 plugin_api = ">=1,<2"
 lichtfeld_version = ">=0.4.2"

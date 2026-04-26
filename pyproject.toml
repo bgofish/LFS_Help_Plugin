@@ -1,6 +1,6 @@
 [project]
 name = "lfs_help_plugin"
-version = "1.0.0"
+version = "0.0.0"
 description = "Keyboard shortcuts and reference panel for LichtFeld Studio"
 requires-python = ">=3.10"
 dependencies = []

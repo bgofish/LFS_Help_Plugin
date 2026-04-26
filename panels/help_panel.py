@@ -1,10 +1,13 @@
 """
 Help panel for LichtFeld Studio.
-Displays keyboard shortcuts and reference information in a tabbed panel.
+Displays keyboard shortcuts in a two-column table.
+
+Tabs are simulated with styled buttons since ui.tab_bar() is not part
+of the immediate-mode draw() API.
 
 Entry format in SHORTCUTS:
-    ("HEADING", None, None)            -> section heading row
-    (None, "Shortcut", "Description") -> shortcut entry row
+    ("HEADING", None, None)             -> section heading row
+    (None, "Shortcut", "Description")  -> shortcut entry row
 """
 
 import lichtfeld as lf
@@ -60,7 +63,7 @@ SHORTCUTS = [
     (None, "Shift + V", "Toggle Split view (training of same 3dGS file)"),
     (None, "G", "Toggle Compare view between selected 3dGS files  = V"),
 
-    # ── EDITING – SELECTION ──────────────────────────────────────────────────
+    # ── EDITING \u2013 SELECTION ──────────────────────────────────────────────────
     ("EDITING \u2013 SELECTION", None, None),
     (None, "Ctrl + 1", "Selection: Centers"),
     (None, "Ctrl + 2", "Selection: Rectangle"),
@@ -102,31 +105,43 @@ FOOTNOTES = (
     "\u00bf Action still to be confirmed"
 )
 
+TABS = ["Shortcuts"]
+
 
 class HelpPanel(lf.ui.Panel):
-    """Tabbed help & shortcuts reference panel."""
+    """Help & shortcuts reference panel."""
 
-    id = "lfs_help_plugin.help_panel"
+    id = "lfs_help.help_panel"
     label = "Help"
     space = lf.ui.PanelSpace.MAIN_PANEL_TAB
     order = 0
-    def draw(self, ui) -> None:
-        with ui.tab_bar() as tabs:
-            with tabs.tab("Shortcuts"):
-                self._draw_shortcuts(ui)
 
-    # ------------------------------------------------------------------
+    def __init__(self):
+        self._active_tab = 0
+
+    def draw(self, ui) -> None:
+        # ── Tab bar (simulated with buttons) ────────────────────────────────
+        with ui.row() as row:
+            for i, name in enumerate(TABS):
+                style = "primary" if i == self._active_tab else "default"
+                if row.button_styled(name, style):
+                    self._active_tab = i
+
+        ui.separator()
+
+        # ── Tab content ─────────────────────────────────────────────────────
+        if self._active_tab == 0:
+            self._draw_shortcuts(ui)
+
     def _draw_shortcuts(self, ui) -> None:
         ui.label("LichtFeld Studio \u2013 Keyboard Shortcuts (v0.5.2)")
         ui.separator()
 
         for header, shortcut, description in SHORTCUTS:
             if header is not None:
-                # Section heading
                 ui.separator()
                 ui.heading(header)
             else:
-                # Two-column shortcut row: key (38%) | description (62%)
                 with ui.split(0.38) as row:
                     row.label(shortcut)
                     row.label(description)
